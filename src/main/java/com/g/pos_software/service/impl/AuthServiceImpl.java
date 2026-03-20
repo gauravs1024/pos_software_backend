@@ -70,7 +70,7 @@ public class AuthServiceImpl implements AuthService {
 
         Authentication authentication=authenticate(email,password);
         Collection<?extends GrantedAuthority> authorities=authentication.getAuthorities();
-        String role=authorities.iterator().next().getAuthority();
+//        String role=authorities.iterator().next().getAuthority();
         String jwt=jwtProvider.generateToken(authentication);
         User user=userRepository.findByEmail(email);
         user.setLastLogin(LocalDateTime.now());

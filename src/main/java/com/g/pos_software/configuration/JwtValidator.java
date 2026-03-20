@@ -29,10 +29,15 @@ public class JwtValidator extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         String jwt=request.getHeader(JwtConstant.JWT_HEADER);
+        String header = request.getHeader(JwtConstant.JWT_HEADER);
+        if (header == null || !header.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         if(jwt!=null){
             jwt=jwt.substring(7);
             try{
-                SecretKey key= Keys.hmacShaKeyFor(JwtConstant.JWT_HEADER.getBytes());
+                SecretKey key= Keys.hmacShaKeyFor(JwtConstant.JWT_SECRET.getBytes());
                 Claims claims= Jwts.parser().verifyWith(key)
                         .build()
                         .parseSignedClaims(jwt)
@@ -48,7 +53,8 @@ public class JwtValidator extends OncePerRequestFilter {
 
             }
             catch (Exception e){
-                throw new BadCredentialsException("Invalid JWT ...");
+//                throw new BadCredentialsException("Invalid JWT ...");
+                System.out.println("Invalid JWT: " + e.getMessage());
             }
 
         }
