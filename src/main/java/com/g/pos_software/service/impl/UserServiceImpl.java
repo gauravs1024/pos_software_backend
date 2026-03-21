@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
         if(user==null){
             throw new UserException("Invalid token");
         }
-        return null;
+        return user;
     }
 
     @Override

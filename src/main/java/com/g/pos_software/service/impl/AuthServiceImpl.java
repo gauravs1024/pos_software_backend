@@ -6,7 +6,7 @@ import com.g.pos_software.exceptions.UserException;
 import com.g.pos_software.mapper.UserMapper;
 import com.g.pos_software.models.User;
 import com.g.pos_software.payload.dto.UserDto;
-import com.g.pos_software.payload.request.AuthResponse;
+import com.g.pos_software.payload.response.AuthResponse;
 import com.g.pos_software.repository.UserRepository;
 import com.g.pos_software.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +47,7 @@ public class AuthServiceImpl implements AuthService {
         newUser.setFullName(userDto.getFullName());
         newUser.setPhone(userDto.getPhone());
         newUser.setLastLogin(LocalDateTime.now());
-        newUser.setCreateAt(LocalDateTime.now());
+        newUser.setCreatedAt(LocalDateTime.now());
         newUser.setUpdatedAt(LocalDateTime.now());
        User savedUser= userRepository.save(newUser);
 

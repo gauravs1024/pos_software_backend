@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -32,10 +31,14 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @ManyToOne
+    private Store store;
+
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime lastLogin;
 

@@ -1,4 +1,4 @@
-package com.g.pos_software.payload.request;
+package com.g.pos_software.payload.response;
 
 import com.g.pos_software.payload.dto.UserDto;
 import lombok.Data;

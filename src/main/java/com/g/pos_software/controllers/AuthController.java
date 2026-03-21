@@ -2,7 +2,7 @@ package com.g.pos_software.controllers;
 
 import com.g.pos_software.exceptions.UserException;
 import com.g.pos_software.payload.dto.UserDto;
-import com.g.pos_software.payload.request.AuthResponse;
+import com.g.pos_software.payload.response.AuthResponse;
 import com.g.pos_software.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

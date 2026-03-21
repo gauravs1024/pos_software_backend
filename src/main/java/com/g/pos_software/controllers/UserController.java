@@ -1,5 +1,6 @@
 package com.g.pos_software.controllers;
 
+import com.g.pos_software.domain.UserRole;
 import com.g.pos_software.exceptions.UserException;
 import com.g.pos_software.mapper.UserMapper;
 import com.g.pos_software.models.User;
@@ -20,6 +21,18 @@ public class UserController {
             @RequestHeader("Authorization") String jwt
     ) throws UserException {
         User user=userService.getUserFromJwtToken(jwt);
+        return  ResponseEntity.ok(UserMapper.toDTO(user));
+
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<UserDto> getAllUsers(
+            @RequestHeader("Authorization") String jwt
+    ) throws UserException {
+        User user=userService.getUserFromJwtToken(jwt);
+        if(!(user.getRole().toString()).equals(UserRole.ROLE_ADMIN.toString())){
+            throw new UserException("You don't have permission to access this");
+        }
         return  ResponseEntity.ok(UserMapper.toDTO(user));
 
     }
