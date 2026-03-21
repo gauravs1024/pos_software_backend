@@ -1,5 +1,6 @@
 package com.g.pos_software.service.impl;
 import com.g.pos_software.configuration.JwtProvider;
+import com.g.pos_software.domain.UserRole;
 import com.g.pos_software.exceptions.UserException;
 import com.g.pos_software.models.User;
 import com.g.pos_software.repository.UserRepository;
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmail(String email) throws UserException {
         User user=userRepository.findByEmail(email);
+        System.out.println("email come from request"+email);
         if(user==null){
             throw new UserException("User not found");
         }
@@ -57,7 +59,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers(User user) throws UserException {
+        if(!(user.getRole().toString()).equals(UserRole.ROLE_ADMIN.toString())){
+            throw new UserException("You don't have permission to access this data");
+        }
         return userRepository.findAll();
     }
 }

@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
@@ -26,14 +28,12 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<UserDto> getAllUsers(
+    public ResponseEntity<List<UserDto>> getAllUsers(
             @RequestHeader("Authorization") String jwt
     ) throws UserException {
         User user=userService.getUserFromJwtToken(jwt);
-        if(!(user.getRole().toString()).equals(UserRole.ROLE_ADMIN.toString())){
-            throw new UserException("You don't have permission to access this");
-        }
-        return  ResponseEntity.ok(UserMapper.toDTO(user));
+            List<UserDto>userDtos=userService.getAllUsers(user).stream().map(UserMapper::toDTO).toList();
+        return  ResponseEntity.ok(userDtos);
 
     }
 
@@ -44,6 +44,14 @@ public class UserController {
     ) throws UserException {
         User user=userService.getUserById(id);
         return  ResponseEntity.ok(UserMapper.toDTO(user));
+
+    }
+
+    @PostMapping()
+    public ResponseEntity<UserDto>getUserByEmail(@RequestBody UserDto userDto) throws UserException {
+        String email=userDto.getEmail();
+        User user=userService.getUserByEmail(email);
+        return ResponseEntity.ok(UserMapper.toDTO(user));
 
     }
 

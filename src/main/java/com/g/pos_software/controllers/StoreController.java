@@ -80,12 +80,19 @@ public class StoreController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse>deleteStore(@PathVariable Long id,
-                                                  @RequestHeader("Authorization")StoreDto storeDto) throws Exception {
+    public ResponseEntity<ApiResponse<Void>> deleteStore(
+            @PathVariable Long id,
+            @RequestHeader("Authorization") String jwt
+    ) throws Exception {
+
         storeService.deleteStore(id);
-        ApiResponse apiResponse=new ApiResponse();
-        apiResponse.setMessage("Store deleted successfully");
-        return ResponseEntity.ok(apiResponse);
+        return ResponseEntity.ok(
+                ApiResponse.<Void>builder()
+                        .status(true)
+                        .message("Store deleted successfully")
+                        .data(null)
+                        .build()
+        );
     }
 
 
