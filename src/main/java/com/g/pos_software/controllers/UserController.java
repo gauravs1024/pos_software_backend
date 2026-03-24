@@ -1,6 +1,5 @@
 package com.g.pos_software.controllers;
 
-import com.g.pos_software.domain.UserRole;
 import com.g.pos_software.exceptions.UserException;
 import com.g.pos_software.mapper.UserMapper;
 import com.g.pos_software.models.User;

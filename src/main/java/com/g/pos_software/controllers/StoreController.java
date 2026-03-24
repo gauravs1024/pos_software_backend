@@ -4,7 +4,6 @@ import com.g.pos_software.domain.StoreStatus;
 import com.g.pos_software.exceptions.UserException;
 import com.g.pos_software.logger.AppLogger;
 import com.g.pos_software.mapper.StoreMapper;
-import com.g.pos_software.models.Store;
 import com.g.pos_software.models.User;
 import com.g.pos_software.payload.dto.StoreDto;
 import com.g.pos_software.payload.response.ApiResponse;
