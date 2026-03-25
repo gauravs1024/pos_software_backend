@@ -11,12 +11,13 @@ import com.g.pos_software.repository.ProductRepository;
 import com.g.pos_software.repository.StoreRepository;
 import com.g.pos_software.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
@@ -25,10 +26,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto createdProduct(ProductDto productDto, User user) throws Exception {
-
-        Store store=storeRepository.findById(
-                productDto.getStoreId()
-        ).orElseThrow(()->new Exception("Store not found"));
+//
+//        Store store=storeRepository.findById(
+//                productDto.getStoreId()
+//        ).orElseThrow(()->new Exception("Store not found"));
+        Store store= productDto.getStore();
+        if(store==null){
+            throw new Exception("Store not found");
+        }
         Category category=categoryRepository.findById(productDto.getCategoryId()).orElseThrow(()->new Exception("Category not found"));
 
         Product product= ProductMapper.toEntity(productDto,store,category);
@@ -39,13 +44,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto updateProduct(Long id, ProductDto productDto, User user) throws Exception {
         Product product=productRepository.findById(id).orElseThrow(()->new Exception("Product not found"));
-        if(productDto.getCategoryId()!=null){
-            Category category=categoryRepository.findById(productDto.getCategoryId()).orElseThrow(()->new Exception("Category not found"));
-                product.setCategory(category);
-
-        }
-
-
 
         product.setName(productDto.getName());
         product.setMrp(productDto.getMrp());

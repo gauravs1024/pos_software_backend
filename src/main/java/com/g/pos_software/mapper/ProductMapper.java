@@ -15,7 +15,7 @@ public class ProductMapper {
                 .category(CategoryMapper.toDto(product.getCategory()))
                 .sellingPrice(product.getSellingPrice())
                 .brand(product.getBrand())
-                .storeId(product.getStoreId())
+                .store(product.getStore())
                 .image(product.getImage())
                 .createdAt(product.getCreatedAt())
                 .updatedAt(product.getUpdatedAt())

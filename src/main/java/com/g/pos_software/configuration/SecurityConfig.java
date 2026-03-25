@@ -30,6 +30,7 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/**").permitAll()   // allow login/signup
                         .requestMatchers("/api/super-admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll()
@@ -66,8 +67,8 @@ public class SecurityConfig {
             public @Nullable CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration cfg= new CorsConfiguration();
                 cfg.setAllowedOrigins(Arrays.asList(
-                        "http://localhost:8080/",
-                        "http://localhost:8081/" //for allowing frontend to connect to backend
+                        "http://localhost:8080",
+                        "http://localhost:8081" //for allowing frontend to connect to backend
                 ));
                 cfg.setAllowedMethods(Collections.singletonList("*"));
                 cfg.setAllowCredentials(true);

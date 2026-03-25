@@ -34,8 +34,8 @@ public class Product {
     @ManyToOne
     private Category category;
 
-    @ManyToOne
-    private Long storeId;
+//    @ManyToOne
+//    private Long storeId;
 
     @ManyToOne
     private Store store;

@@ -1,6 +1,7 @@
 package com.g.pos_software.payload.dto;
 
 import com.g.pos_software.models.Category;
+import com.g.pos_software.models.Store;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,11 +14,11 @@ public class ProductDto {
     private String description;
     private Double mrp;
     private Double sellingPrice;
-//    private Long categoryId;
+    private Long categoryId;
     private CategoryDto category;
     private String brand;
     private String image;
-    private Long storeId;
+    private Store store;
     private java.time.LocalDateTime createdAt;
     private java.time.LocalDateTime updatedAt;
 
