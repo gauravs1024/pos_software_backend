@@ -2,11 +2,15 @@ package com.g.pos_software.payload.dto;
 
 import com.g.pos_software.models.Category;
 import com.g.pos_software.models.Store;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductDto {
     private Long id;
     private String name;
@@ -18,7 +22,7 @@ public class ProductDto {
     private CategoryDto category;
     private String brand;
     private String image;
-    private Store store;
+    private Long storeId;
     private java.time.LocalDateTime createdAt;
     private java.time.LocalDateTime updatedAt;
 

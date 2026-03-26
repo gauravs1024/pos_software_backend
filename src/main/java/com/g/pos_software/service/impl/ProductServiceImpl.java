@@ -26,14 +26,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto createdProduct(ProductDto productDto, User user) throws Exception {
-//
-//        Store store=storeRepository.findById(
-//                productDto.getStoreId()
-//        ).orElseThrow(()->new Exception("Store not found"));
-        Store store= productDto.getStore();
-        if(store==null){
-            throw new Exception("Store not found");
-        }
+        Store store = storeRepository.findById(productDto.getStoreId())
+                .orElseThrow(() -> new Exception("Store not found"));
         Category category=categoryRepository.findById(productDto.getCategoryId()).orElseThrow(()->new Exception("Category not found"));
 
         Product product= ProductMapper.toEntity(productDto,store,category);
