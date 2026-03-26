@@ -34,7 +34,8 @@ public class CategoryServiceImpl implements CategoryService {
                 .store(store)
                 .build();
         checkAuthority(user,category.getStore());
-        return CategoryMapper.toDto(category);
+        Category savedCategory = categoryRepository.save(category);
+        return CategoryMapper.toDto(savedCategory);
     }
 
     @Override

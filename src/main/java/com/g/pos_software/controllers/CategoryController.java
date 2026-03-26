@@ -17,7 +17,7 @@ public class CategoryController {
     private  final CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<CategoryDto>createCategory(CategoryDto categoryDto) throws Exception {
+    public ResponseEntity<CategoryDto>createCategory(@RequestBody  CategoryDto categoryDto) throws Exception {
         CategoryDto createdCategory=categoryService.createCategory(categoryDto);
         return ResponseEntity.ok(createdCategory);
     }
