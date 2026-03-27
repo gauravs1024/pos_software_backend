@@ -20,7 +20,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> signupHandler(
-            @RequestBody UserDto userDto) throws UserException {
+            @RequestBody UserDto userDto) throws Exception {
         return ResponseEntity.ok(authService.signup(userDto));
 
     }

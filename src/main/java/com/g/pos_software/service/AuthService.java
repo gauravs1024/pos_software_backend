@@ -6,6 +6,6 @@ import com.g.pos_software.payload.response.AuthResponse;
 
 public interface AuthService {
 
-    AuthResponse signup(UserDto userDto) throws UserException;
+    AuthResponse signup(UserDto userDto) throws Exception;
     AuthResponse login(UserDto userDto) throws UserException;
 }

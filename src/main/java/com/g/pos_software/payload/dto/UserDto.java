@@ -20,6 +20,7 @@ public class UserDto {
     private String password;
 
     private UserRole role;
+    private  Long storeId;
 
     private LocalDateTime createAt;
     private LocalDateTime updatedAt;

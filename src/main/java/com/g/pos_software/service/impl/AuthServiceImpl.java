@@ -4,9 +4,11 @@ import com.g.pos_software.configuration.JwtProvider;
 import com.g.pos_software.domain.UserRole;
 import com.g.pos_software.exceptions.UserException;
 import com.g.pos_software.mapper.UserMapper;
+import com.g.pos_software.models.Store;
 import com.g.pos_software.models.User;
 import com.g.pos_software.payload.dto.UserDto;
 import com.g.pos_software.payload.response.AuthResponse;
+import com.g.pos_software.repository.StoreRepository;
 import com.g.pos_software.repository.UserRepository;
 import com.g.pos_software.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -29,10 +31,11 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
     private final CustomUserImplementation customUserImplementation;
+    private final StoreRepository storeRepository;
 
 
     @Override
-    public AuthResponse signup(UserDto userDto) throws UserException {
+    public AuthResponse signup(UserDto userDto) throws Exception {
         User user=userRepository.findByEmail(userDto.getEmail());
         if(user!=null){
             throw new UserException("email id already registered");
@@ -49,6 +52,10 @@ public class AuthServiceImpl implements AuthService {
         newUser.setLastLogin(LocalDateTime.now());
         newUser.setCreatedAt(LocalDateTime.now());
         newUser.setUpdatedAt(LocalDateTime.now());
+        if(userDto.getStoreId()!=null){
+            Store store= storeRepository.findById(userDto.getStoreId()).orElseThrow(()-> new Exception("Store not found"));
+            newUser.setStore(store);
+        }
        User savedUser= userRepository.save(newUser);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDto.getEmail(),userDto.getPassword());
