@@ -1,5 +1,7 @@
 package com.g.pos_software.payload.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.g.pos_software.domain.UserRole;
 import lombok.Data;
 
@@ -17,6 +19,8 @@ public class UserDto {
     private  String email;
 
     private String phone;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     private UserRole role;

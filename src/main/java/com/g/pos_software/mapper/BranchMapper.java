@@ -2,6 +2,7 @@ package com.g.pos_software.mapper;
 
 import com.g.pos_software.models.Branch;
 import com.g.pos_software.models.Store;
+import com.g.pos_software.models.User;
 import com.g.pos_software.payload.dto.BranchDto;
 
 public class BranchMapper {
@@ -19,15 +20,18 @@ public class BranchMapper {
                 .createdAt(branch.getCreatedAt())
                 .updatedAt(branch.getUpdatedAt())
                 .storeId(branch.getStore()!=null?branch.getStore().getId():null)
+
 //                .manager(UserMapper.toDto(branch.getManager()))
+                .managerId(branch.getManager()!=null?branch.getManager().getId():null)
                 .build();
     }
-    public static Branch toEntity(BranchDto branchDto, Store store) {
+    public static Branch toEntity(BranchDto branchDto, Store store, User manager) {
         return Branch.builder()
                 .id(branchDto.getId())
                 .name(branchDto.getName())
                 .address(branchDto.getAddress())
                 .store(store)
+                .manager(manager)
                 .phone(branchDto.getPhone())
                 .email(branchDto.getEmail())
                 .closeTime(branchDto.getCloseTime())

@@ -12,9 +12,12 @@ public class UserMapper {
         userDto.setId(savedUser.getId());
         userDto.setFullName(savedUser.getFullName());
         userDto.setEmail(savedUser.getEmail());
+        if (savedUser.getStore() != null) {
+            userDto.setStoreId(savedUser.getStore().getId());
+        }
         userDto.setRole(savedUser.getRole());
         userDto.setCreateAt(savedUser.getCreatedAt());
-        userDto.setUpdatedAt(savedUser.getLastLogin());
+        userDto.setUpdatedAt(savedUser.getUpdatedAt());
         userDto.setLastLogin(savedUser.getLastLogin());
         userDto.setPhone(savedUser.getPhone());
         return  userDto;

@@ -38,5 +38,6 @@ public class BranchDto {
 
 
     private UserDto manager;
+    private Long managerId;
 
 }

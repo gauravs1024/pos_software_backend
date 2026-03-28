@@ -1,5 +1,6 @@
 package com.g.pos_software.service.impl;
 
+import com.g.pos_software.domain.UserRole;
 import com.g.pos_software.exceptions.UserException;
 import com.g.pos_software.mapper.BranchMapper;
 import com.g.pos_software.models.Branch;
@@ -27,9 +28,13 @@ public class BranchServiceImpl  implements BranchService {
 
     @Override
     public BranchDto createBranch(BranchDto branchDto) throws UserException {
-        User currentUser=userService.getCurrentUser();
+        User currentUser=userService.getUserById(branchDto.getManagerId());
+        boolean isManager=currentUser.getRole().equals(UserRole.ROLE_STORE_MANAGER);
+        if(!isManager){
+            throw new UserException("Manager with this"+ branchDto.getManagerId() +"id doesn't exist");
+        }
         Store store=storeRepository.findByStoreAdminId(currentUser.getId());
-        Branch branch= BranchMapper.toEntity(branchDto,store);
+        Branch branch= BranchMapper.toEntity(branchDto,store,currentUser);
         Branch savedBranch=branchRepository.save(branch);
         return BranchMapper.toDto(savedBranch);
     }
